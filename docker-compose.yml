@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  vue:
+    image: frontend_vue
+    build:
+      context: .
+    container_name: frontend_vue
+    networks:
+      - frontend
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+    volumes:
+      - .:/srv/app
+      - /srv/app/node_modules
+
+networks:
+  frontend:
+    name: frontend
+    driver: bridge
