@@ -40,9 +40,7 @@ watch(() => route.name, function() {
             routes.settings = true;
             break;
     }
-
-    console.log(routes);
-})
+});
 </script>
 
 <template>
