@@ -10,10 +10,11 @@ Simple demo to test and learn about following topics in regards to mobile device
 * [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API)
 
 ## Getting Started
-1. If not already done, install Docker Compose (v2.10+)
-2. Run docker compose up
-3. Open http://127.0.0.1:8000
-4. Run docker compose down --remove-orphans to stop the Docker containers
+1. Rename .env.example to .env
+2. If not already done, install Docker Compose (v2.10+)
+3. Run docker compose up
+4. Open http://127.0.0.1:8000
+5. Run docker compose down --remove-orphans to stop the Docker containers
 
 ## Access Demo On Other Devices
 With the current configuration the demo is only running on your local computer and can't be properly accessed by other devices in the same network (e.g. to test it on actually mobile devices).
