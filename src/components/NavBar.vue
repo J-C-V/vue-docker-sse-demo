@@ -5,13 +5,13 @@ const props = defineProps({
     home: Boolean,
     chat: Boolean,
     scan: Boolean,
-    history: Boolean,
+    location: Boolean,
     settings: Boolean
 });
 </script>
 
 <template>
-    <footer class="container-fluid fixed-bottom bg-white border-top border-2">
+    <footer class="container-fluid bg-white border-top border-2">
         <nav class="row">
             <div class="col text-center p-0 nav-button" :class="{ active: home }" aria-label="Home">
                 <RouterLink to="/">
@@ -23,7 +23,7 @@ const props = defineProps({
             <div class="col text-center p-0 nav-button" :class="{ active: chat }" aria-label="Chat">
                 <RouterLink to="/chat">
                     <div class="p-2">
-                        <i class="bi bi-keyboard-fill"></i>
+                        <i class="bi bi-chat-fill"></i>
                     </div>
                 </RouterLink>
             </div>
@@ -34,10 +34,10 @@ const props = defineProps({
                     </div>
                 </RouterLink>
             </div>
-            <div class="col text-center p-0 nav-button" :class="{ active: history }" aria-label="History">
-                <RouterLink to="/history">
+            <div class="col text-center p-0 nav-button" :class="{ active: location }" aria-label="Location">
+                <RouterLink to="/location">
                     <div class="p-2">
-                        <i class="bi bi-book-fill"></i>
+                        <i class="bi bi-compass-fill"></i>
                     </div>
                 </RouterLink>
             </div>
@@ -53,10 +53,6 @@ const props = defineProps({
 </template>
 
 <style scoped>
-    footer {
-        height: 54px;
-    }
-
     .nav-button i {
         font-size: 1.5em;
         color: rgb(100, 100, 100);

@@ -15,7 +15,7 @@ const routes = reactive ({
     home: false,
     chat: false,
     scan: false,
-    history: false,
+    location: false,
     settings: false
 });
 
@@ -41,9 +41,9 @@ watch(() => route.name, function() {
             pageName.value = 'Scan'
             routes.scan = true;
             break;
-        case 'history':
-            pageName.value = 'History';
-            routes.history = true;
+        case 'location':
+            pageName.value = 'Location';
+            routes.location = true;
             break;
         case 'settings':
             pageName.value = 'Settings';
@@ -54,16 +54,11 @@ watch(() => route.name, function() {
 </script>
 
 <template>
-    <Header :page-name="pageName"/>
-    <div class="p-3 content">
-        <RouterView></RouterView>
+    <div class="d-flex flex-column h-100">
+        <Header :page-name="pageName" />
+        <main class="flex-grow-1 overflow-auto p-3">
+            <RouterView></RouterView>
+        </main>
+        <NavBar :home="routes.home" :chat="routes.chat" :scan="routes.scan" :location="routes.location" :settings="routes.settings" />
     </div>
-    <NavBar :home="routes.home" :chat="routes.chat" :scan="routes.scan" :history="routes.history" :settings="routes.settings" />
 </template>
-
-<style scoped>
-    .content {
-        margin-top: 54px;
-        margin-bottom: 54px;
-    }
-</style>

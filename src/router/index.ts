@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import ChatView from '@/views/ChatView.vue'
-import HistoryView from '@/views/HistoryView.vue'
+import LocationView from '@/views/LocationView.vue'
 import HomeView from '@/views/HomeView.vue'
 import ScannerView from '@/views/ScannerView.vue'
 import SettingsView from '@/views/Settings.vue'
@@ -25,9 +25,9 @@ const router = createRouter({
             component: ScannerView
         },
         {
-            path: '/history',
-            name: 'history',
-            component: HistoryView
+            path: '/location',
+            name: 'location',
+            component: LocationView
         },
         {
             path: '/settings',
