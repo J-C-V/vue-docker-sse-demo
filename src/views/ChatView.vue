@@ -33,6 +33,8 @@ eventSource.onmessage = (ev) => {
 
     // Add to array and render new message
     const data = JSON.parse(ev.data);
+    data.postedAt = new Date(data.postedAt);
+
     messages.unshift(data);
 }
 eventSource.onerror = (ev) => {
@@ -61,6 +63,8 @@ async function fetchMsgHistory()
         // Add to array and render old messages
         const oldMessages: Message[] = data.messages;
         oldMessages.forEach(message => {
+            message.postedAt = new Date(message.postedAt);
+
             messages.push(message);
         });
     })
@@ -99,7 +103,7 @@ async function publishMsg()
         <!-- Text Container -->
         <div class="flex-grow-1 h-100 overflow-auto">
             <div class="d-flex flex-column-reverse h-100 overflow-auto">
-                <p class="text-break" v-for="message in messages">{{ message.postedAt + ' | ' + message.message }}</p>
+                <p class="text-break" v-for="message in messages">{{ message.postedAt.toLocaleString() + ' | ' + message.message }}</p>
             </div>
         </div>
         <!-- Input Container -->
