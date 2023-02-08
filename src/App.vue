@@ -56,7 +56,7 @@ watch(() => route.name, function() {
 <template>
     <div class="d-flex flex-column h-100">
         <Header :page-name="pageName" />
-        <main class="flex-grow-1 overflow-auto p-3">
+        <main class="position-relative flex-grow-1 overflow-auto p-3">
             <RouterView></RouterView>
         </main>
         <NavBar :home="routes.home" :chat="routes.chat" :scan="routes.scan" :location="routes.location" :settings="routes.settings" />

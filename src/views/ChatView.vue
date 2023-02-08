@@ -19,6 +19,7 @@ interface Message {
 }
 const messages: Message[] = reactive([]);
 const sentMsg = ref('');
+const loadingMsgs = ref(true);
 fetchMsgHistory();
 
 // SSE
@@ -67,6 +68,9 @@ async function fetchMsgHistory()
 
             messages.push(message);
         });
+
+        // Hide spinner
+        loadingMsgs.value = false;
     })
     .catch((err) => {
         console.log(err);
@@ -99,6 +103,13 @@ async function publishMsg()
 </script>
 
 <template>
+    <!-- Loading Bar -->
+    <div v-if="loadingMsgs" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
+        <div class="spinner-border text-primary loading-msgs" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <!-- Chat Container -->
     <div class="d-flex flex-column h-100">
         <!-- Text Container -->
         <div class="flex-grow-1 h-100 overflow-auto">
@@ -115,6 +126,11 @@ async function publishMsg()
 </template>
 
 <style scoped>
+    .loading-msgs {
+        height: 5em;
+        width: 5em;
+    }
+
     .button-send {
         width: 44px;
         border: 0;
