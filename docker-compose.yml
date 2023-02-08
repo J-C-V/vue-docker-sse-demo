@@ -9,10 +9,7 @@ services:
     networks:
       - frontend
     ports:
-      # Exposes port only to localhost
-      # - "127.0.0.1:8000:8000"
-      # Expose port to everyone in the network
-      - "8000:8000"
+      - "8000:80"
     restart: unless-stopped
     volumes:
       - .:/srv/app
