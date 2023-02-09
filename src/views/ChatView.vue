@@ -45,7 +45,7 @@ eventSource.onerror = (ev) => {
 // Navigation Guards
 onBeforeRouteLeave((to, from) => {
     eventSource.close();
-    console.log('Closing connection...')
+    console.log('Closing connection...');
 });
 
 /**
