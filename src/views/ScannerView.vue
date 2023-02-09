@@ -14,7 +14,6 @@ onBeforeRouteLeave((from, to) => {
 
 reader.listVideoInputDevices()
     .then((videoInputDevices) => {
-        // Although multiple devices are listed only the default one works...?
         console.log(videoInputDevices);
 
         // Use the default camera
@@ -38,7 +37,15 @@ reader.listVideoInputDevices()
 
                 decodedMsg.value = result.getText();
             }
+        })
+        .catch((err) => {
+            console.log(err);
+            reader.reset();
+            console.log('Stopping media streams because of an error...');
         });
+    })
+    .catch((err) => {
+        console.log(err);
     });
 </script>
 
