@@ -1,10 +1,16 @@
 <script setup lang='ts'>
 import { BrowserMultiFormatReader } from '@zxing/library';
 import { ref } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 
 const reader = new BrowserMultiFormatReader();
 const codeType = ref('')
 const decodedMsg = ref('');
+
+onBeforeRouteLeave((from, to) => {
+    reader.reset();
+    console.log('Stopping media streams...');
+});
 
 reader.listVideoInputDevices()
     .then((videoInputDevices) => {
