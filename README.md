@@ -16,6 +16,11 @@ Simple demo to test and learn about following topics in regards to mobile device
 4. Open http://127.0.0.1:8000
 5. Run docker compose down --remove-orphans to stop the Docker containers
 
+## HTTPS (TODO)
+~~Https is required to use a device's media devices. So [@vitejs/plugin-basic-ssl](@vitejs/plugin-basic-ssl) is used for this demo to generate untrusted certificates which still allow access to the page after proceeding a message with a warning.~~
+
+Configuration is currently broken...
+
 ## Access Demo On Other Devices
 With the current configuration the demo is only running on your local computer and can't be properly accessed by other devices in the same network (e.g. to test it on actually mobile devices).
 
