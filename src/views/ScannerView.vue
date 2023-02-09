@@ -7,9 +7,19 @@ const reader = new BrowserMultiFormatReader();
 const codeType = ref('')
 const decodedMsg = ref('');
 
+const cameraInitialized = ref(false);
+
 onBeforeRouteLeave((from, to) => {
-    reader.reset();
-    console.log('Stopping media streams...');
+    // Wait for the camera to finish its initialization before leaving this route
+    // to properly close the media stream.
+    if (cameraInitialized.value) {
+        reader.reset();
+        console.log('Stopping media streams...');
+
+        return true;
+    }
+
+    return false;
 });
 
 reader.listVideoInputDevices()
@@ -18,6 +28,9 @@ reader.listVideoInputDevices()
 
         // Use the default camera
         reader.decodeFromVideoDevice(null, 'camera-feed', (result, err) => {
+            // Camera is initialized
+            cameraInitialized.value = true
+
             if (result) {
                 // Debug
                 console.log(result);
