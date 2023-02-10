@@ -3,16 +3,15 @@ import { BrowserMultiFormatReader } from '@zxing/library';
 import { ref } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 
+const cameraInitialized = ref(false);
 const reader = new BrowserMultiFormatReader();
 const codeType = ref('')
 const decodedMsg = ref('');
 
-let cameraInitialized = false;
-
 onBeforeRouteLeave((from, to) => {
     // Wait for the camera to finish its initialization before leaving this route
     // to properly close the media stream
-    if (cameraInitialized) {
+    if (cameraInitialized.value) {
         reader.reset();
         console.log('Stopping media streams...');
 
@@ -28,7 +27,7 @@ reader.listVideoInputDevices().then((videoInputDevices) => {
     // Use the default camera
     reader.decodeFromVideoDevice(null, 'camera-feed', (result, err) => {
         // Camera is initialized
-        cameraInitialized = true
+        cameraInitialized.value = true
 
         if (result) {
             console.log(result);
@@ -56,19 +55,21 @@ reader.listVideoInputDevices().then((videoInputDevices) => {
         console.log('Stopping media streams because of an error...');
 
         // Set to true on error so that the user can leave the page
-        cameraInitialized = true;
+        cameraInitialized.value = true;
     });
 })
 .catch((err) => {
     console.log(err);
 
     // Set to true on error so that the user can leave the page
-    cameraInitialized = true;
+    cameraInitialized.value = true;
 });
 </script>
 
 <template>
-    <div class="position-absolute start-0 top-0 h-100 w-100 bg-dark"></div>
+    <div class="position-absolute start-0 top-0 h-100 w-100 bg-dark text-secondary text-center">
+        <p class="fs-2 fw-bold no-camera">Waiting for camera...</p>
+    </div>
     <video id="camera-feed" class="position-absolute start-0 top-0 w-100"></video>
     <div class="position-absolute start-0 bottom-0 h-25 w-100 p-3 bg-dark text-white">
         <h2 class="fs-4 mb-3">Scan Barcode/QR Code</h2>
@@ -76,3 +77,10 @@ reader.listVideoInputDevices().then((videoInputDevices) => {
         <p>Decoded message: {{ decodedMsg }}</p>
     </div>
 </template>
+
+<style scoped>
+.no-camera {
+    position: relative;
+    top: 30vh;
+}
+</style>
