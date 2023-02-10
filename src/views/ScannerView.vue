@@ -22,50 +22,49 @@ onBeforeRouteLeave((from, to) => {
     return false;
 });
 
-reader.listVideoInputDevices()
-    .then((videoInputDevices) => {
-        console.log(videoInputDevices);
+reader.listVideoInputDevices().then((videoInputDevices) => {
+    console.log(videoInputDevices);
 
-        // Use the default camera
-        reader.decodeFromVideoDevice(null, 'camera-feed', (result, err) => {
-            // Camera is initialized
-            cameraInitialized = true
+    // Use the default camera
+    reader.decodeFromVideoDevice(null, 'camera-feed', (result, err) => {
+        // Camera is initialized
+        cameraInitialized = true
 
-            if (result) {
-                console.log(result);
+        if (result) {
+            console.log(result);
 
-                // Set decoded message
-                switch (result.getBarcodeFormat()) {
-                    case 4:
-                        codeType.value = 'Barcode'
-                        break;
-                    case 11:
-                        codeType.value = 'QR Code'
-                        break;
-                    default:
-                        codeType.value = 'Unknown'
-                        break;
-                }
-
-                decodedMsg.value = result.getText();
+            // Set decoded message
+            switch (result.getBarcodeFormat()) {
+                case 4:
+                    codeType.value = 'Barcode'
+                    break;
+                case 11:
+                    codeType.value = 'QR Code'
+                    break;
+                default:
+                    codeType.value = 'Unknown'
+                    break;
             }
-        })
-        .catch((err) => {
-            console.log(err);
 
-            reader.reset();
-            console.log('Stopping media streams because of an error...');
-
-            // Set to true on error so that the user can leave the page
-            cameraInitialized = true;
-        });
+            decodedMsg.value = result.getText();
+        }
     })
     .catch((err) => {
         console.log(err);
 
+        reader.reset();
+        console.log('Stopping media streams because of an error...');
+
         // Set to true on error so that the user can leave the page
         cameraInitialized = true;
     });
+})
+.catch((err) => {
+    console.log(err);
+
+    // Set to true on error so that the user can leave the page
+    cameraInitialized = true;
+});
 </script>
 
 <template>
