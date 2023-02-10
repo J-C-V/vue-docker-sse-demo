@@ -14,7 +14,7 @@ import { onMounted, ref } from 'vue';
 import 'ol/ol.css';
 
 // Show loading spinner as long as page isn't fully rendered yet
-const loading = ref(true);
+const isLoading = ref(true);
 
 // Map instance
 let map: Map;
@@ -87,7 +87,7 @@ function initMap(): void
     });
 
     map.once('postrender', () => {
-        loading.value = false;
+        isLoading.value = false;
     });
 }
 
@@ -124,7 +124,7 @@ function setMapPos(pos: GeolocationCoordinates, showMarker: boolean): void
     <!-- Map -->
     <div id="map" class="position-absolute start-0 top-0 w-100 h-100"></div>
     <!-- Loading Spinner -->
-    <div v-if="loading" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
+    <div v-if="isLoading" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
         <div class="spinner-border loading" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
