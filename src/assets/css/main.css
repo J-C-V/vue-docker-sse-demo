@@ -9,6 +9,8 @@ html, body, #app {
 }
 
 .loading {
+    color: rgb(90, 90, 255);
     height: 5em;
     width: 5em;
+    border-width: 0.5em;
 }

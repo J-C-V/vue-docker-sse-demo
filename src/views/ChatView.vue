@@ -117,7 +117,7 @@ async function publishMsg()
     </div>
     <!-- Loading Bar -->
     <div v-if="loadingMsgs" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
-        <div class="spinner-border text-primary loading" role="status">
+        <div class="spinner-border loading" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>    
