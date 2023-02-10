@@ -32,7 +32,6 @@ reader.listVideoInputDevices()
             cameraInitialized = true
 
             if (result) {
-                // Debug
                 console.log(result);
 
                 // Set decoded message
@@ -53,12 +52,19 @@ reader.listVideoInputDevices()
         })
         .catch((err) => {
             console.log(err);
+
             reader.reset();
             console.log('Stopping media streams because of an error...');
+
+            // Set to true on error so that the user can leave the page
+            cameraInitialized = true;
         });
     })
     .catch((err) => {
         console.log(err);
+
+        // Set to true on error so that the user can leave the page
+        cameraInitialized = true;
     });
 </script>
 
