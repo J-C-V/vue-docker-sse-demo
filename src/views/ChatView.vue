@@ -29,7 +29,6 @@ eventSource.onopen = (ev) => {
     console.log('Subscription successful...');
 }
 eventSource.onmessage = (ev) => {
-    // Debug
     console.log(ev);
 
     // Add to array and render new message
@@ -58,7 +57,6 @@ async function fetchMsgHistory()
     })
     .then((response) => response.json())
     .then((data) => {
-        // Debug
         console.log(data);
 
         // Add to array and render old messages
