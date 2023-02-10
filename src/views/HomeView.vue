@@ -6,9 +6,9 @@
             <li>Vue</li>
             <li>Bootstrap</li>
             <li>Docker</li>
-            <li>Server-Sent Events</li>
+            <li>Server-Sent Events via Mercure protocol</li>
             <li>Barcode and QR-Code Scanning</li>
-            <li>Geolocation</li>
+            <li>Geolocation API</li>
         </ul>
     </div>
 </template>
