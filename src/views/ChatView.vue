@@ -19,7 +19,7 @@ interface Message {
 }
 const messages: Message[] = reactive([]);
 const sentMsg = ref('');
-const loadingMsgs = ref(true);
+const loading = ref(true);
 fetchMsgHistory();
 
 // SSE
@@ -68,7 +68,7 @@ async function fetchMsgHistory()
         });
 
         // Hide spinner
-        loadingMsgs.value = false;
+        loading.value = false;
     })
     .catch((err) => {
         console.log(err);
@@ -115,8 +115,8 @@ async function publishMsg()
             <button type="button" class="button-send" @click="publishMsg"><i class="bi bi-send-fill"></i></button>
         </div>
     </div>
-    <!-- Loading Bar -->
-    <div v-if="loadingMsgs" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
+    <!-- Loading Spinner -->
+    <div v-if="loading" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
         <div class="spinner-border loading" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
