@@ -101,12 +101,6 @@ async function publishMsg()
 </script>
 
 <template>
-    <!-- Loading Bar -->
-    <div v-if="loadingMsgs" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
-        <div class="spinner-border text-primary loading-msgs" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
     <!-- Chat Container -->
     <div class="d-flex flex-column h-100">
         <!-- Text Container -->
@@ -121,14 +115,15 @@ async function publishMsg()
             <button type="button" class="button-send" @click="publishMsg"><i class="bi bi-send-fill"></i></button>
         </div>
     </div>
+    <!-- Loading Bar -->
+    <div v-if="loadingMsgs" class="position-absolute top-0 start-0 h-100 w-100 d-flex justify-content-center align-items-center bg-white">
+        <div class="spinner-border text-primary loading" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>    
 </template>
 
 <style scoped>
-    .loading-msgs {
-        height: 5em;
-        width: 5em;
-    }
-
     .button-send {
         width: 44px;
         border: 0;
