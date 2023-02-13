@@ -3,15 +3,15 @@ import { BrowserMultiFormatReader } from '@zxing/library';
 import { ref } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 
-const cameraInitialized = ref(false);
 const reader = new BrowserMultiFormatReader();
-const codeType = ref('')
 const decodedMsg = ref('');
+const isCameraReady = ref(false);
+const isCameraError = ref(false);
 
-onBeforeRouteLeave((from, to) => {
+onBeforeRouteLeave(() => {
     // Wait for the camera to finish its initialization before leaving this route
-    // to properly close the media stream
-    if (cameraInitialized.value) {
+    // to properly close the media stream again
+    if (isCameraReady.value || isCameraError.value) {
         reader.reset();
         console.log('Stopping media streams...');
 
@@ -26,24 +26,10 @@ reader.listVideoInputDevices().then((videoInputDevices) => {
 
     // Use the default camera
     reader.decodeFromVideoDevice(null, 'camera-feed', (result, err) => {
-        // Camera is initialized
-        cameraInitialized.value = true
+        isCameraReady.value = true
 
         if (result) {
             console.log(result);
-
-            // Set decoded message
-            switch (result.getBarcodeFormat()) {
-                case 4:
-                    codeType.value = 'Barcode'
-                    break;
-                case 11:
-                    codeType.value = 'QR Code'
-                    break;
-                default:
-                    codeType.value = 'Unknown'
-                    break;
-            }
 
             decodedMsg.value = result.getText();
         }
@@ -51,29 +37,27 @@ reader.listVideoInputDevices().then((videoInputDevices) => {
     .catch((err) => {
         console.log(err);
 
+        isCameraError.value = true;
         reader.reset();
         console.log('Stopping media streams because of an error...');
-
-        // Set to true on error so that the user can leave the page
-        cameraInitialized.value = true;
     });
 })
 .catch((err) => {
     console.log(err);
 
-    // Set to true on error so that the user can leave the page
-    cameraInitialized.value = true;
+    isCameraError.value = true;
+    reader.reset();
+    console.log('Stopping media streams because of an error...');
 });
 </script>
 
 <template>
-    <div class="position-absolute start-0 top-0 h-100 w-100 bg-dark text-secondary text-center">
-        <p class="fs-2 fw-bold no-camera">Waiting for camera...</p>
-    </div>
     <video id="camera-feed" class="position-absolute start-0 top-0 w-100"></video>
+    <div v-if="!isCameraReady" class="position-absolute start-0 top-0 h-100 w-100 bg-dark text-secondary text-center">
+        <p class="fs-2 fw-bold no-camera">Waiting for camera...</p>
+    </div>    
     <div class="position-absolute start-0 bottom-0 h-25 w-100 p-3 bg-dark text-white">
         <h2 class="fs-4 mb-3">Scan Barcode/QR Code</h2>
-        <p>Code type: {{ codeType }}</p>
         <p>Decoded message: {{ decodedMsg }}</p>
     </div>
 </template>
