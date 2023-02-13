@@ -4,12 +4,12 @@ import { onBeforeRouteLeave } from 'vue-router';
 
 // URLs
 const urlBackend = import.meta.env.VITE_URL_BACKEND;
-const urlHub = import.meta.env.VITE_URL_HUB;
+const urlHub = new URL(import.meta.env.VITE_URL_HUB);
+const urlSubbedTopics = urlBackend + '/hub';
+const urlMsgEndpoint = urlBackend + '/messages';
 
-const urlMsgHistory = urlBackend + '/getStoredMsg';
-const urlPublish = urlBackend + '/publishMsg';
-const urlSubscribe = new URL(urlHub);
-urlSubscribe.searchParams.append('topic', urlBackend + '/subscribeMsg');
+// Subscribe to topics
+urlHub.searchParams.append('topic', urlSubbedTopics + '/messages');
 
 // Messages
 interface Message {
@@ -23,9 +23,10 @@ const isLoading = ref(true);
 fetchMsgHistory();
 
 // SSE
-const eventSource = new EventSource(urlSubscribe);
+const eventSource = new EventSource(urlHub);
 
 eventSource.onopen = (ev) => {
+    console.log(ev);
     console.log('Subscription successful...');
 }
 eventSource.onmessage = (ev) => {
@@ -41,8 +42,7 @@ eventSource.onerror = (ev) => {
     console.log(ev);
 }
 
-// Navigation Guards
-onBeforeRouteLeave((to, from) => {
+onBeforeRouteLeave(() => {
     eventSource.close();
     console.log('Closing connection...');
 });
@@ -52,7 +52,7 @@ onBeforeRouteLeave((to, from) => {
  */
 async function fetchMsgHistory()
 {
-    await fetch(urlMsgHistory, {
+    await fetch(urlMsgEndpoint, {
         method: 'GET'
     })
     .then((response) => response.json())
@@ -63,7 +63,6 @@ async function fetchMsgHistory()
         const oldMessages: Message[] = data.messages;
         oldMessages.forEach(message => {
             message.postedAt = new Date(message.postedAt);
-
             messages.push(message);
         });
 
@@ -84,7 +83,7 @@ async function publishMsg()
         message: sentMsg.value
     }
 
-    await fetch(urlPublish, {
+    await fetch(urlMsgEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
