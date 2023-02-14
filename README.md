@@ -16,7 +16,7 @@ Simple demo to test and learn about following topics in regards to mobile device
 4. Open `https://localhost:8080` in your web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
 5. Run docker compose down --remove-orphans to stop the Docker containers
 
-## HTTPS (TODO)
+## HTTPS
 An Https connection is required to use a device's media devices (in this case camera and gelocation). [@vitejs/plugin-basic-ssl](@vitejs/plugin-basic-ssl) is used in this case to generate untrusted certificates which still allow access to the page after proceeding a message with a warning. Don't use that in production!
 
 
