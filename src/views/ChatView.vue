@@ -90,7 +90,10 @@ async function publishMsg()
       },
       body: JSON.stringify(msg)
     })
-    .then(() => {
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        
         sentMsg.value = '';
     })
     .catch((err) => {
