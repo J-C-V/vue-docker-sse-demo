@@ -12,6 +12,7 @@ import View from 'ol/View';
 import { onMounted, ref } from 'vue';
 
 import 'ol/ol.css';
+import markerUrl from '@/assets/img/map-marker.png';
 
 // Show loading spinner as long as page isn't fully rendered yet
 const isLoading = ref(true);
@@ -66,7 +67,7 @@ function initMap(): void
         style: new Style({
             image: new Icon({
                 anchor: [0.5, 1],
-                src: 'src/assets/img/map-marker.png',
+                src: markerUrl,
                 scale: 1
             })
         })
