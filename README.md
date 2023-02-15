@@ -8,6 +8,7 @@ Simple demo to test and learn about following topics in regards to mobile device
 * Server-Sent Events with the help of the [Mercure protocol](https://mercure.rocks/)
 * Barcode and QR Code Scanning with the help of the image processing library [ZXing](https://github.com/zxing-js/library)
 * [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API)
+* Progressive Web App with the help of [vite-pwa](https://vite-pwa-org.netlify.app/) (ToDo)
 
 ## Getting Started
 1. Rename .env.example to .env
