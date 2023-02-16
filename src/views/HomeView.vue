@@ -9,7 +9,7 @@
             <li>Server-Sent Events via Mercure protocol</li>
             <li>Barcode and QR-Code Scanning</li>
             <li>Geolocation API</li>
-            <li>Progressive Web App (ToDo)</li>
+            <li>Progressive Web App</li>
         </ul>
     </div>
 </template>
